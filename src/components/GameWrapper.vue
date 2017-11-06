@@ -1,7 +1,10 @@
 <template>
-  <div class="game">
-    <h1 class="game__heading">Puzzle Game</h1>
+  <div>
+    <div class="game">
+      <h1 class="game__heading">Puzzle Game</h1>
 
+    </div>
+    <popup-wrapper></popup-wrapper>
   </div>
 </template>
 
