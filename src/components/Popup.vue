@@ -1,9 +1,17 @@
 <template>
-  <div class="popup" v-if="showPopupWindow">
+  <div
+    class="popup"
+    v-if="popupVisibility">
     <div class="popup__window">
       <div class="popup__title-bar">
-        <h2 class="popup__window-name">{{ windowName }} {{ showPopupWindow}}</h2>
-        <span class="popup__close-icon" @click="closeWindow">x</span>
+        <h2 class="popup__window-name">{{ windowName }}</h2>
+        <span
+          class="popup__close-icon"
+          @click="closePopup"
+          v-if="closeable"
+        >
+          x
+        </span>
       </div>
       <div class="popup__content-wrapper">
         <slot></slot>
@@ -21,19 +29,19 @@
         type: String,
         default: 'Default window',
       },
-    },
-    computed: {
-      showPopupWindow() {
-        return this.$store.getters.getLoginPopup;
+      closeable: {
+        type: Boolean,
+        default: true,
       },
     },
-    data() {
-      return {
-      };
+    computed: {
+      popupVisibility() {
+        return this.$store.getters.getPopupState;
+      },
     },
     methods: {
       ...mapActions({
-        closeWindow: 'hideLoginPopup',
+        closePopup: 'hidePopup',
       }),
     },
   };
@@ -56,7 +64,7 @@
 
   .popup__window {
     background: $white;
-    border-radius: $window-border-radius;
+    border-radius: $small-border-radius;
     box-shadow: $standard-shadow;
     min-width: 250px;
     padding: 0;

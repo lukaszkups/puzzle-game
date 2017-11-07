@@ -1,35 +1,47 @@
 const state = {
-  showLoginPopup: true,
+  popupVisibility: true,
+  userName: '',
 };
+
 /* eslint-disable no-shadow */
 /* eslint-disable no-param-reassign */
+
 const getters = {
-  getLoginPopup(state) {
-    return state.showLoginPopup;
+  getPopupState(state) {
+    return state.popupVisibility;
+  },
+  getUserName(state) {
+    return state.userName;
   },
 };
 
 const mutations = {
-  showLoginPopup(state) {
-    state.showLoginPopup = true;
+  showPopup(state) {
+    state.popupVisibility = true;
   },
-  hideLoginPopup(state) {
-    state.showLoginPopup = false;
+  hidePopup(state) {
+    state.popupVisibility = false;
   },
-  toggleLoginPopup(state) {
-    state.showLoginPopup = !state.showLoginPopup;
+  togglePopup(state) {
+    state.popupVisibility = !state.popupVisibility;
+  },
+  updateUserName(state, payload) {
+    state.userName = payload;
   },
 };
 
 const actions = {
-  showLoginPopup({ commit }) {
-    commit('showLoginPopup');
+  showPopup({ commit }) {
+    commit('showPopup');
   },
-  hideLoginPopup({ commit }) {
-    commit('hideLoginPopup');
+  hidePopup({ commit }) {
+    commit('hidePopup');
   },
-  toggleLoginPopup({ commit }) {
-    commit('toggleLoginPopup');
+  togglePopup({ commit }) {
+    commit('togglePopup');
+  },
+  updateUserName({ commit }, payload) {
+    commit('updateUserName', payload);
   },
 };
 
