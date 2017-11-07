@@ -4,21 +4,27 @@
       <h1 class="game__heading">Puzzle Game</h1>
 
     </div>
-    <popup-wrapper></popup-wrapper>
+    <popup-wrapper :windowName="windowName" :showWindow="showWindow"></popup-wrapper>
   </div>
 </template>
 
 <script>
-import PopupWrapper from './PopupWrapper';
+import Popup from './Popup';
 
 export default {
   name: 'GameWrapper',
   data() {
     return {
+      windowName: 'Logging in',
     };
   },
+  computed: {
+    showWindow() {
+      return this.$store.getters.getLoginPopup;
+    },
+  },
   components: {
-    'popup-wrapper': PopupWrapper,
+    'popup-wrapper': Popup,
   },
 };
 </script>
@@ -33,9 +39,9 @@ export default {
 
   .game__heading {
     color: $gray-light;
-    font-family: Helvetica, sans-serif, Arial;
-    font-size: 2em;
-    margin: 1em 0;
+    font-family: $helvetica-font-family;
+    font-size: $heading-size;
+    margin: $heading-margin 0;
     text-align: center;
     text-transform: uppercase;
   }
