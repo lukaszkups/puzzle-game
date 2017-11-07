@@ -1,0 +1,7 @@
+// defines border radius separately top-left, top-right, bottom-right, bottom-left
+@mixin borderRadiuses($topLeftBorderRadius, $topRightBorderRadius, $bottomRightBorderRadius, $bottomLeftBorderRadius) {
+  border-top-left-radius: $topLeftBorderRadius;
+  border-top-right-radius: $topRightBorderRadius;
+  border-bottom-right-radius: $bottomRightBorderRadius;
+  border-bottom-left-radius: $bottomLeftBorderRadius;
+}

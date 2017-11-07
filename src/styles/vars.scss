@@ -1,10 +1,28 @@
 // colors
+$blue-dark: #35495e;
 $gray-light: #cacaca;
+$gray-lighter: #eee;
+$green: #41b883;
+$red: #cd3e2d;
 $white: #fefefe;
 
-// sizes
+// font related
+$small-size: 9px;
+$default-size: 12px;
+$heading-size: 24px;
+$default-weight: 300;
+$helvetica-font-family: Helvetica, sans-serif, Arial, Verdana;
+
+// shadows
+$standard-shadow: 0 5px 5px rgba(0,0,0,0.25);
+
+// various sizes such as margin, padding, border-radius etc.
+$heading-margin: 24px;
 $standard-padding: 10px;
-$window-border-radius: 5px;
+$small-padding: 5px;
+$small-border-radius: 3px;
+$standard-border-radius: 5px;
+
 
 // z-index
 $popup-z-index: 5;
