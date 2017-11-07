@@ -1,15 +1,23 @@
 <template>
   <div>
     <div class="game">
-      <h1 class="game__heading">Puzzle Game</h1>
-
+      <h1 class="game__heading">
+        Puzzle Game
+      </h1>
     </div>
-    <popup-wrapper :windowName="windowName" :showWindow="showWindow"></popup-wrapper>
+    <popup-wrapper
+      :window-name="windowName"
+      :show-window="showWindow"
+      :closeable="false"
+    >
+      <popup-login></popup-login>
+    </popup-wrapper>
   </div>
 </template>
 
 <script>
 import Popup from './Popup';
+import PopupLogin from './PopupLogin';
 
 export default {
   name: 'GameWrapper',
@@ -25,6 +33,7 @@ export default {
   },
   components: {
     'popup-wrapper': Popup,
+    'popup-login': PopupLogin,
   },
 };
 </script>
