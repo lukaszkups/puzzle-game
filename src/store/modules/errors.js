@@ -20,6 +20,7 @@ const mutations = {
     }
     if (state.errorsList[payload.errorOwner].indexOf(payload.errorMessage) === -1) {
       state.errorsList[payload.errorOwner].push(payload.errorMessage);
+      console.log('added: ', payload.errorMessage, state.errorsList[payload.errorOwner]);
     }
   },
   removeError(state, payload) {
@@ -29,6 +30,7 @@ const mutations = {
       state.errorsList[payload.errorOwner] = state.errorsList[payload.errorOwner].filter(obj =>
         obj !== payload.errorMessage,
       );
+      console.log('removed: ', payload.errorMessage, state.errorsList[payload.errorOwner]);
     }
   },
 };

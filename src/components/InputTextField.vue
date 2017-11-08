@@ -89,6 +89,7 @@
         const inputValue = e.target.value;
         const errorOwner = e.target.name;
         const rules = this.inputValidationRules;
+        // TODO - this needs to be refactored!
         if (rules.required) {
           const errorObj = {
             errorOwner,
@@ -114,7 +115,7 @@
         if (rules.max) {
           const errorObj = {
             errorOwner,
-            errorMessage: `Value of this field has to under ${rules.max} characters long.`,
+            errorMessage: `Value of this field has to be under ${rules.max} characters long.`,
           };
           if (rules.max >= inputValue.length) {
             this.$store.dispatch('removeError', errorObj);
