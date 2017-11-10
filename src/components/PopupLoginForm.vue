@@ -65,7 +65,11 @@
     methods: {
       submitLoginForm(e) {
         e.preventDefault();
-        validateLoginForm(this.userName);
+        if (validateLoginForm(this.userName)) {
+          const startTime = new Date();
+          this.$store.dispatch('markStartTime', startTime);
+          this.$store.dispatch('closePopup');
+        }
       },
     },
   };
