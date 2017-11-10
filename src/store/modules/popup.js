@@ -19,7 +19,7 @@ const mutations = {
   showPopup(state) {
     state.popupVisibility = true;
   },
-  hidePopup(state) {
+  closePopup(state) {
     state.popupVisibility = false;
   },
   togglePopup(state) {
@@ -34,8 +34,8 @@ const actions = {
   showPopup({ commit }) {
     commit('showPopup');
   },
-  hidePopup({ commit }) {
-    commit('hidePopup');
+  closePopup({ commit }) {
+    commit('closePopup');
   },
   togglePopup({ commit }) {
     commit('togglePopup');

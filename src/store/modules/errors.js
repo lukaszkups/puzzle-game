@@ -14,24 +14,23 @@ const getters = {
 const mutations = {
   addError(state, payload) {
     if (state.errorsList &&
-      (!state.errorsList[payload.errorOwner] ||
-      !state.errorsList[payload.errorOwner].length)) {
-      state.errorsList[payload.errorOwner] = [];
+      !state.errorsList.length) {
+      state.errorsList = [];
     }
-    if (state.errorsList[payload.errorOwner].indexOf(payload.errorMessage) === -1) {
-      state.errorsList[payload.errorOwner].push(payload.errorMessage);
-      console.log('added: ', payload.errorMessage, state.errorsList[payload.errorOwner]);
+    if (state.errorsList.indexOf(payload) === -1) {
+      state.errorsList.push(payload);
     }
   },
   removeError(state, payload) {
     if (state.errorsList &&
-      state.errorsList[payload.errorOwner] &&
-      state.errorsList[payload.errorOwner].length) {
-      state.errorsList[payload.errorOwner] = state.errorsList[payload.errorOwner].filter(obj =>
-        obj !== payload.errorMessage,
+      state.errorsList.length) {
+      state.errorsList = state.errorsList.filter(obj =>
+        obj !== payload,
       );
-      console.log('removed: ', payload.errorMessage, state.errorsList[payload.errorOwner]);
     }
+  },
+  clearErrors(state) {
+    state.errorsList = [];
   },
 };
 
@@ -41,6 +40,9 @@ const actions = {
   },
   removeError({ commit }, payload) {
     commit('removeError', payload);
+  },
+  clearErrors({ commit }) {
+    commit('clearErrors');
   },
 };
 

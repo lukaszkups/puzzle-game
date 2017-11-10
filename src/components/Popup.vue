@@ -41,7 +41,7 @@
     },
     methods: {
       ...mapActions({
-        closePopup: 'hidePopup',
+        closePopup: 'closePopup',
       }),
     },
   };

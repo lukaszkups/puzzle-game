@@ -1,57 +1,58 @@
 <template>
-  <div>
-    <div class="game">
-      <h1 class="game__heading">
-        Puzzle Game
-      </h1>
-    </div>
-    <popup-wrapper
-      :window-name="windowName"
-      :show-window="showWindow"
-      :closeable="false"
-    >
-      <popup-login></popup-login>
-    </popup-wrapper>
+  <div class="game-wrapper">
+    <game-tiles
+      :tiles="tiles"
+    />
   </div>
 </template>
 
 <script>
-import Popup from './Popup';
-import PopupLogin from './PopupLogin';
+  import GameTiles from './GameTiles';
 
-export default {
-  name: 'GameWrapper',
-  data() {
-    return {
-      windowName: 'Logging in',
-    };
-  },
-  computed: {
-    showWindow() {
-      return this.$store.getters.getLoginPopup;
+  import PuzzleImage from './../assets/image.jpg';
+  // 390 in total, 130 per tile
+
+  export default {
+    data() {
+      return {
+        image: null,
+        tiles: [],
+      };
     },
-  },
-  components: {
-    'popup-wrapper': Popup,
-    'popup-login': PopupLogin,
-  },
-};
+    methods: {
+      getImageData() {
+        const img = new Image();
+        img.onload = () => {
+          this.generatePuzzleTiles();
+        };
+        img.src = PuzzleImage;
+      },
+      generatePuzzleTiles() {
+        const tileSize = 130;
+        for (let x = 0; x < 9; x += 1) {
+          this.tiles.push({
+            order: x,
+            styles: {
+              backgroundPositionX: `-${(x % tileSize) * tileSize}px`,
+              backgroundPositionY: `-${Math.floor(x / tileSize) * tileSize}px`,
+              height: `${tileSize}px`,
+              width: `${tileSize}px`,
+            },
+          });
+        }
+      },
+    },
+    components: {
+      'game-tiles': GameTiles,
+    },
+  };
 </script>
 
 <style lang="scss">
-  .game {
+  .game-wrapper {
     display: block;
     float: none;
     margin: 0 auto;
-    width: 780px;
-  }
-
-  .game__heading {
-    color: $gray-light;
-    font-family: $helvetica-font-family;
-    font-size: $heading-size;
-    margin: $heading-margin 0;
-    text-align: center;
-    text-transform: uppercase;
+    padding: 0;
   }
 </style>
