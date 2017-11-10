@@ -1,44 +1,72 @@
 <template>
   <div>
     <form class="login__form">
-      <input-text-field
-        :input-name="loginInput"
-        :input-class-name="inputClassName"
-        :input-error-class-name="inputErrorClassName"
-        :input-placeholder="inputPlaceholder"
-        :error-message-class-name="errorMessageClassName"
+      <input
+        type="text"
+        name="login-input"
+        :class="inputClass"
+        placeholder="Your nickname"
+        v-model.lazy="userName"
       />
-      <button class="login__submit-button">Start</button>
+      <button
+        class="login__submit-button"
+        @click="submitLoginForm">
+        Start
+      </button>
+      <p
+        v-show="hasErrors"
+        class="login__form-error">
+        {{ inputError }}
+      </p>
     </form>
   </div>
 </template>
 
 <script>
-  import InputTextField from './InputTextField';
+  import { validateLoginForm } from './../helpers/validation';
 
   export default {
     computed: {
-      userName() {
-        return this.$store.getters.getUserName;
+      userName: {
+        get() {
+          return this.$store.getters.getUserName;
+        },
+        set(newUserName) {
+          this.$store.dispatch('updateUserName', newUserName);
+        },
+      },
+      errorsList() {
+        return this.$store.getters.getErrors;
+      },
+      hasErrors() {
+        return this.errorsList &&
+          this.errorsList.length;
+      },
+      inputClass() {
+        const obj = {};
+        obj[this.inputClassName] = true;
+        obj[this.inputErrorClassName] = this.hasErrors;
+        return obj;
+      },
+      inputError() {
+        if (this.hasErrors) {
+          return this.errorsList[0];
+        }
+        return false;
       },
     },
     data() {
       return {
         errors: {},
-        loginInput: 'loginInput',
         inputClassName: 'login__text-input',
         inputErrorClassName: 'login__text-input--has-errors',
-        inputPlaceholder: 'Your nickname',
-        errorMessageClassName: 'login__form-error',
       };
     },
     methods: {
-      submitLoginForm() {
-
+      submitLoginForm(e) {
+        e.preventDefault();
+        validateLoginForm(this.userName);
       },
-    },
-    components: {
-      'input-text-field': InputTextField,
     },
   };
 </script>
@@ -46,26 +74,36 @@
 <style lang="scss">
   .login__form {
     display: flex;
+    flex-wrap: wrap;
     margin: 0;
     padding: $standard-padding 0;
+    width: 300px;
   }
 
   .login__form-error {
     color: $red;
-    display: block;
     font-size: $small-size;
+    order: 1;
+    width: 100%;
   }
 
   .login__text-input {
     @include borderRadiuses($standard-border-radius, 0, 0, $standard-border-radius);
 
     border: 1px solid $gray-light;
+    flex: 1;
     margin: 0;
     padding: $small-padding $standard-padding;
-  }
 
-  .login__text-input--has-errors {
-    border-color: $red;
+    &.login__text-input--has-errors {
+      border-color: $red;
+      color: $red;
+
+      & + .login__submit-button {
+        background: $red;
+        border-color: $red;
+      }
+    }
   }
 
   .login__submit-button {
