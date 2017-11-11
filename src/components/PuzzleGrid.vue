@@ -3,7 +3,7 @@
     <puzzle-tile
       v-for="puzz in puzzles"
       :key="puzz.order"
-      :order="puzz.order"      
+      :order="puzz.order"
     ></puzzle-tile>
   </ul>
 </template>

@@ -5,10 +5,11 @@
     :order="order"
   ></li>
   <drop v-else
-    class="tile-grid__tile"
+    :class="tileClasses"
     :style="styles"
     :order="order"
-    @dragover="handleDragover(tile.order, ...arguments)"
+    @dragleave="over = false"
+    @dragover="over = true"
     @drop="handleDrop"
   ></drop>
 </template>
@@ -23,13 +24,14 @@
         default: 0,
       },
     },
+    data() {
+      return {
+        over: false,
+      };
+    },
     methods: {
-      handleDragover() {
-        // if (order === data.order) {
-        //   e.dataTransfer.dropEffect = 'none';
-        // }
-      },
       handleDrop(transferredData) {
+        this.over = false;
         if (transferredData.order === this.order) {
           this.addSolvedPuzzle(transferredData);
         }
@@ -60,6 +62,12 @@
       styles() {
         return this.tiles[this.order].styles;
       },
+      tileClasses() {
+        return {
+          'tile-grid__tile': true,
+          'tile-grid__tile--over': this.over,
+        };
+      },
     },
     components: {
       Drop,
@@ -76,5 +84,9 @@
     margin: 0;
     padding: 0;
     width: 130px;
+
+    &.tile-grid__tile--over {
+      background: $green !important;
+    }
   }
 </style>

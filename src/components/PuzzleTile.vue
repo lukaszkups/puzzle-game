@@ -1,9 +1,11 @@
 <template>
-  <drag
+  <drag v-show="!dragging"
     class="tile-grid__tile tile-grid__tile--floating"
     :style="styles"
     :transferData="dataToTransfer"
     :order="order"
+    @dragstart="dragging = true"
+    @dragend="dragging = false"
   ></drag>
 </template>
 
@@ -16,6 +18,11 @@
         type: Number,
         default: 0,
       },
+    },
+    data() {
+      return {
+        dragging: false,
+      };
     },
     components: {
       Drag,
