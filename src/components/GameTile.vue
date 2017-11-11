@@ -39,6 +39,10 @@
         helperTile.styles = data.styles;
         helperTile.inPlace = true;
         this.tile = helperTile;
+        this.removePuzzle(data.order);
+      },
+      removePuzzle(puzzle) {
+        this.$store.dispatch('removePuzzle', puzzle);
       },
     },
     computed: {

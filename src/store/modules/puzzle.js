@@ -19,7 +19,14 @@ const mutations = {
     state.puzzle.push(payload);
   },
   updatePuzzle(state, payload) {
-    state.puzzle[payload.order] = payload;
+    // This won't work:
+    // state.puzzle[payload.order] = payload;
+    // Because of reactive var limitations mentioned here: https://vuejs.org/v2/guide/list.html#Caveats
+    state.puzzle.splice(payload.order, 1, payload);
+  },
+  removePuzzle(state, payload) {
+    const puzzleIndex = state.puzzle.findIndex(obj => obj.order === payload);
+    state.puzzle.splice(puzzleIndex, 1);
   },
 };
 
@@ -32,6 +39,9 @@ const actions = {
   },
   updatePuzzle({ commit }, payload) {
     commit('updatePuzzle', payload);
+  },
+  removePuzzle({ commit }, payload) {
+    commit('removePuzzle', payload);
   },
 };
 

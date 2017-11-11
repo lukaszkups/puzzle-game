@@ -19,7 +19,10 @@ const mutations = {
     state.tiles.push(payload);
   },
   updateTile(state, payload) {
-    state.tiles[payload.order] = payload;
+    // This won't work:
+    // state.tiles[payload.order] = payload;
+    // Because of reactive var limitations mentioned here: https://vuejs.org/v2/guide/list.html#Caveats
+    state.tiles.splice(payload.order, 1, payload);
   },
 };
 
