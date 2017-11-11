@@ -3,8 +3,7 @@
     <game-tile
       v-for="tile in tiles"
       :key="tile.order"
-      :tileClass="tile-grid__tile"
-      :style="tile.styles"
+      :styles="tile.styles"
       :tile="tile"
     ></game-tile>
   </ul>

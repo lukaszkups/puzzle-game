@@ -34,15 +34,14 @@
         const img = new Image();
         img.onload = () => {
           this.generatePuzzleTiles();
-          while (this.puzzles.length < 3 || this.puzzles.length > 8) {
-            this.shuffleTiles();
-          }
+          this.shuffleTiles();
         };
         img.src = PuzzleImage;
       },
       generatePuzzleTiles() {
         for (let x = 0; x < 9; x += 1) {
           this.tiles.push({
+            inPlace: true,
             order: x,
             styles: {
               background: `url(${PuzzleImage}) no-repeat`,
@@ -50,21 +49,23 @@
               backgroundPositionY: `-${Math.floor(x / 3) * this.tileSize}px`,
               height: `${this.tileSize}px`,
               width: `${this.tileSize}px`,
-              visibility: 'visible',
             },
           });
         }
       },
       shuffleTiles() {
         let counter = 1;
-        this.tiles = this.tiles.map((tile) => {
+        // Because we need at least one missing tile
+        const neccesarryMissingTile = Math.floor(Math.random() * 8) + 0;
+        this.tiles = this.tiles.map((tile, index) => {
           const tileClone = tile;
-          const takeTile = Math.random() < 0.5;
+          const takeTile = index === neccesarryMissingTile ? true : Math.random() < 0.5;
           const imageRandomPosX = Math.floor(Math.random() * 350) + 1;
           const imageRandomPosY = Math.floor(Math.random() * 175) + 1;
 
           if (takeTile) {
             const puzzle = {
+              inPlace: true,
               order: tile.order,
               styles: {
                 background: `url(${PuzzleImage}) no-repeat`,
@@ -74,16 +75,15 @@
                 left: `${imageRandomPosX}px`,
                 top: `${imageRandomPosY}px`,
                 width: `${this.tileSize}px`,
-                visibility: 'visible',
                 zIndex: counter,
               },
             };
             counter += 1;
             this.puzzles.push(puzzle);
-            delete tileClone.styles.background;
             delete tileClone.styles.backgroundPositionX;
             delete tileClone.styles.backgroundPositionY;
-            tileClone.styles.visibility = 'hidden';
+            tileClone.styles.background = '#35495e';
+            tileClone.inPlace = false;
           }
           return tileClone;
         });

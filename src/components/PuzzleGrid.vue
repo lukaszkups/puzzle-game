@@ -1,21 +1,26 @@
 <template>
   <ul class="puzzle-grid">
-    <li
+    <puzzle-tile
       v-for="puzz in puzzles"
       :key="puzz.order"
-      :style="puzz.styles"
-      class="tile-grid__tile tile-grid__tile--floating"
-    ></li>
+      :styles="puzz.styles"
+      :puzzle="puzz"
+    ></puzzle-tile>
   </ul>
 </template>
 
 <script>
+  import PuzzleTile from './PuzzleTile';
+
   export default {
     props: {
       puzzles: {
         type: Array,
         default: [],
       },
+    },
+    components: {
+      'puzzle-tile': PuzzleTile,
     },
   };
 </script>
@@ -32,10 +37,5 @@
     padding: 0;
     position: relative;
     width: 396px;
-  }
-
-  .tile-grid__tile--floating {
-    float: none;
-    position: absolute;
   }
 </style>

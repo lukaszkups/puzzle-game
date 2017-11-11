@@ -1,25 +1,50 @@
 <template>
-  <li
+  <li v-if="tile.inPlace"
     class="tile-grid__tile"
-    :style="style"
+    :style="styles"
     :tile="tile"
   ></li>
+  <drop v-else
+    class="tile-grid__tile"
+    :style="styles"
+    :tile="tile"
+    @dragover="handleDragover(tile.order, ...arguments)"
+    @drop="handleDrop"
+  ></drop>
 </template>
 
 <script>
+  import { Drop } from 'vue-drag-drop';
+
   export default {
     props: {
-      style: Object,
-      default: () => {},
+      styles: {
+        type: Object,
+        default: () => {},
+      },
+      tile: {
+        type: Object,
+        default: () => {},
+      },
     },
-    tile: {
-      style: Object,
-      default: () => {},
+    methods: {
+      handleDragover(order, data, e) {
+        console.log(data, order);
+        if (order === data.order) {
+          e.dataTransfer.dropEffect = 'none';
+        }
+      },
+      handleDrop(data) {
+        console.log(data);
+      },
     },
     computed: {
       order() {
         return this.tile.order;
       },
+    },
+    components: {
+      Drop,
     },
   };
 </script>
