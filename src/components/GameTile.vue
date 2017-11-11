@@ -36,15 +36,21 @@
           this.addSolvedPuzzle(transferredData);
         }
       },
+      removePuzzle(puzzle) {
+        return this.$store.dispatch('removePuzzle', puzzle);
+      },
       addSolvedPuzzle(data) {
         const helperTile = { ...this.tile };
         helperTile.styles = data.styles;
         helperTile.inPlace = true;
         this.tile = helperTile;
-        this.removePuzzle(data.order);
+        this.removePuzzle(data.order).then(() => this.tryFinishGame());
       },
-      removePuzzle(puzzle) {
-        this.$store.dispatch('removePuzzle', puzzle);
+      tryFinishGame() {
+        if (!this.puzzles || this.puzzles.length === 0) {
+          const endTime = new Date();
+          this.$store.dispatch('markEndTime', endTime);
+        }
       },
     },
     computed: {
@@ -67,6 +73,9 @@
           'tile-grid__tile': true,
           'tile-grid__tile--over': this.over,
         };
+      },
+      puzzles() {
+        return this.$store.getters.getPuzzles;
       },
     },
     components: {

@@ -41,7 +41,13 @@ const actions = {
     commit('updatePuzzle', payload);
   },
   removePuzzle({ commit }, payload) {
-    commit('removePuzzle', payload);
+    /* need to return promise because after every removal
+        we have to check immediately if all puzzles are in
+        place (so we can finish the game) */
+    return new Promise((resolve) => {
+      commit('removePuzzle', payload);
+      resolve();
+    });
   },
 };
 
