@@ -3,8 +3,7 @@
     <puzzle-tile
       v-for="puzz in puzzles"
       :key="puzz.order"
-      :styles="puzz.styles"
-      :puzzle="puzz"
+      :order="puzz.order"      
     ></puzzle-tile>
   </ul>
 </template>
@@ -13,10 +12,9 @@
   import PuzzleTile from './PuzzleTile';
 
   export default {
-    props: {
-      puzzles: {
-        type: Array,
-        default: [],
+    computed: {
+      puzzles() {
+        return this.$store.getters.getPuzzles;
       },
     },
     components: {

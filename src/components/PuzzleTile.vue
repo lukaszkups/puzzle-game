@@ -2,7 +2,8 @@
   <drag
     class="tile-grid__tile tile-grid__tile--floating"
     :style="styles"
-    :transferData="puzzle.order"
+    :transferData="dataToTransfer"
+    :order="order"
   ></drag>
 </template>
 
@@ -11,17 +12,30 @@
 
   export default {
     props: {
-      styles: {
-        type: Object,
-        default: () => {},
-      },
-      puzzle: {
-        type: Object,
-        default: () => {},
+      order: {
+        type: Number,
+        default: 0,
       },
     },
     components: {
       Drag,
+    },
+    computed: {
+      puzzles() {
+        return this.$store.getters.getPuzzles;
+      },
+      puzzle() {
+        return this.puzzles.filter(obj => obj.order === this.order)[0];
+      },
+      styles() {
+        return this.puzzle.styles;
+      },
+      dataToTransfer() {
+        return {
+          styles: this.styles,
+          order: this.order,
+        };
+      },
     },
   };
 </script>

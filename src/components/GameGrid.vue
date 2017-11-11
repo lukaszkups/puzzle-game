@@ -3,8 +3,7 @@
     <game-tile
       v-for="tile in tiles"
       :key="tile.order"
-      :styles="tile.styles"
-      :tile="tile"
+      :order="tile.order"
     ></game-tile>
   </ul>
 </template>
@@ -13,10 +12,9 @@
   import GameTile from './GameTile';
 
   export default {
-    props: {
-      tiles: {
-        type: Array,
-        default: [],
+    computed: {
+      tiles() {
+        return this.$store.getters.getTiles;
       },
     },
     components: {

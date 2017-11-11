@@ -2,12 +2,12 @@
   <li v-if="tile.inPlace"
     class="tile-grid__tile"
     :style="styles"
-    :tile="tile"
+    :order="order"
   ></li>
   <drop v-else
     class="tile-grid__tile"
     :style="styles"
-    :tile="tile"
+    :order="order"
     @dragover="handleDragover(tile.order, ...arguments)"
     @drop="handleDrop"
   ></drop>
@@ -18,29 +18,43 @@
 
   export default {
     props: {
-      styles: {
-        type: Object,
-        default: () => {},
-      },
-      tile: {
-        type: Object,
-        default: () => {},
+      order: {
+        type: Number,
+        default: 0,
       },
     },
     methods: {
-      handleDragover(order, data, e) {
-        console.log(data, order);
-        if (order === data.order) {
-          e.dataTransfer.dropEffect = 'none';
+      handleDragover() {
+        // if (order === data.order) {
+        //   e.dataTransfer.dropEffect = 'none';
+        // }
+      },
+      handleDrop(transferredData) {
+        if (transferredData.order === this.order) {
+          this.addSolvedPuzzle(transferredData);
         }
       },
-      handleDrop(data) {
-        console.log(data);
+      addSolvedPuzzle(data) {
+        const helperTile = { ...this.tile };
+        helperTile.styles = data.styles;
+        helperTile.inPlace = true;
+        this.tile = helperTile;
       },
     },
     computed: {
-      order() {
-        return this.tile.order;
+      tiles() {
+        return this.$store.getters.getTiles;
+      },
+      tile: {
+        get() {
+          return this.tiles[this.order];
+        },
+        set(tileToUpdate) {
+          this.$store.dispatch('updateTile', tileToUpdate);
+        },
+      },
+      styles() {
+        return this.tiles[this.order].styles;
       },
     },
     components: {

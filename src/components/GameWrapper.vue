@@ -1,11 +1,7 @@
 <template>
   <div class="game-wrapper">
-    <game-grid
-      :tiles="tiles"
-    />
-    <puzzle-grid
-      :puzzles="puzzles"
-    />
+    <game-grid />
+    <puzzle-grid />
   </div>
 </template>
 
@@ -19,14 +15,28 @@
     data() {
       return {
         image: null,
-        tiles: [],
-        puzzles: [],
         tileSize: 130,
       };
     },
     computed: {
       gameStarted() {
         return this.$store.getters.getStartTime;
+      },
+      tiles: {
+        get() {
+          return this.$store.getters.getTiles || [];
+        },
+        set(tileSet) {
+          this.$store.dispatch('setTiles', tileSet);
+        },
+      },
+      puzzles: {
+        get() {
+          return this.$store.getters.getPuzzles;
+        },
+        set(newPuzzle) {
+          this.$store.dispatch('pushPuzzle', newPuzzle);
+        },
       },
     },
     methods: {
@@ -39,8 +49,9 @@
         img.src = PuzzleImage;
       },
       generatePuzzleTiles() {
+        const tiles = [];
         for (let x = 0; x < 9; x += 1) {
-          this.tiles.push({
+          tiles.push({
             inPlace: true,
             order: x,
             styles: {
@@ -52,6 +63,7 @@
             },
           });
         }
+        this.tiles = tiles;
       },
       shuffleTiles() {
         let counter = 1;
