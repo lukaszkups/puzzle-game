@@ -1,7 +1,7 @@
 <template>
   <div
     class="popup"
-    v-if="popupVisibility">
+    v-if="showWindow">
     <div class="popup__window">
       <div class="popup__title-bar">
         <h2 class="popup__window-name">{{ windowName }}</h2>
@@ -33,10 +33,9 @@
         type: Boolean,
         default: true,
       },
-    },
-    computed: {
-      popupVisibility() {
-        return this.$store.getters.getPopupState;
+      showWindow: {
+        type: Boolean,
+        default: false,
       },
     },
     methods: {
@@ -53,6 +52,7 @@
     background: rgba(0,0,0,0.25);
     bottom: 0;
     display: flex;
+    font-family: $helvetica-font-family;
     justify-content: center;
     left: 0;
     position: fixed;

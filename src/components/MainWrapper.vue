@@ -8,11 +8,19 @@
     </div>
     <popup-wrapper
       v-if="!gameStarted"
-      :window-name="windowName"
-      :show-window="showWindow"
+      :window-name="loginPopupName"
+      :showWindow="showLoginWindow"
       :closeable="false"
     >
       <popup-login />
+    </popup-wrapper>
+    <popup-wrapper
+      v-if="gameFinished"
+      :window-name="scorePopupName"
+      :showWindow="gameFinished"
+      :closeable="false"
+    >
+      <popup-user-score />
     </popup-wrapper>
   </div>
 </template>
@@ -21,26 +29,33 @@
 import GameWrapper from './GameWrapper';
 import Popup from './Popup';
 import PopupLogin from './PopupLoginForm';
+import PopupUserScore from './PopupUserScore';
+
 
 export default {
   name: 'GameWrapper',
   data() {
     return {
-      windowName: 'Logging in',
+      loginPopupName: 'Logging in',
+      scorePopupName: 'Your score',
     };
   },
   computed: {
-    showWindow() {
-      return this.$store.getters.getLoginPopup;
+    showLoginWindow() {
+      return this.$store.getters.getLoginPopupState;
     },
     gameStarted() {
       return this.$store.getters.getStartTime !== 0;
+    },
+    gameFinished() {
+      return this.gameStarted && this.$store.getters.getEndTime !== 0;
     },
   },
   components: {
     'game-wrapper': GameWrapper,
     'popup-wrapper': Popup,
     'popup-login': PopupLogin,
+    'popup-user-score': PopupUserScore,
   },
 };
 </script>
