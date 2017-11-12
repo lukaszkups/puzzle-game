@@ -1,6 +1,6 @@
 <template>
   <li v-if="tile.inPlace"
-    class="tile-grid__tile"
+    class="board-grid__tile"
     :style="styles"
     :order="order"
   ></li>
@@ -37,7 +37,7 @@
         }
       },
       removePuzzle(puzzle) {
-        this.$store.dispatch('removePuzzle', puzzle);
+        return this.$store.dispatch('removePuzzle', puzzle);
       },
       addSolvedPuzzle(data) {
         const helperTile = { ...this.tile };
@@ -47,7 +47,7 @@
         this.removePuzzle(data.order).then(() => this.tryFinishGame());
       },
       tryFinishGame() {
-        if (!this.puzzles || this.puzzles.length === 0) {
+        if (this.puzzleLeft === 0) {
           const endTime = new Date();
           this.$store.dispatch('markEndTime', endTime);
         }
@@ -70,12 +70,15 @@
       },
       tileClasses() {
         return {
-          'tile-grid__tile': true,
-          'tile-grid__tile--over': this.over,
+          'board-grid__tile': true,
+          'board-grid__tile--over': this.over,
         };
       },
       puzzles() {
         return this.$store.getters.getPuzzles;
+      },
+      puzzleLeft() {
+        return this.puzzles.length;
       },
     },
     components: {
@@ -85,7 +88,7 @@
 </script>
 
 <style lang="scss">
-  .tile-grid__tile {
+  .board-grid__tile {
     border: 1px solid $white;
     display: block;
     float: left;
@@ -94,7 +97,7 @@
     padding: 0;
     width: 130px;
 
-    &.tile-grid__tile--over {
+    &.board-grid__tile--over {
       background: $green !important;
     }
   }

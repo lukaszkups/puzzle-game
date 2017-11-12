@@ -1,15 +1,15 @@
 <template>
-  <ul class="tile-grid">
-    <game-tile
+  <ul class="board-grid">
+    <board-tile
       v-for="tile in tiles"
       :key="tile.order"
       :order="tile.order"
-    ></game-tile>
+    />
   </ul>
 </template>
 
 <script>
-  import GameTile from './GameTile';
+  import BoardTile from './BoardTile';
 
   export default {
     computed: {
@@ -18,13 +18,13 @@
       },
     },
     components: {
-      'game-tile': GameTile,
+      'board-tile': BoardTile,
     },
   };
 </script>
 
 <style lang="scss">
-  .tile-grid {
+  .board-grid {
     display: block;
     height: 396px;
     list-style-type: none;
