@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import { validateLoginForm } from './../helpers/validation';
+  import validateLoginForm from './../helpers/validation';
 
   export default {
     computed: {
