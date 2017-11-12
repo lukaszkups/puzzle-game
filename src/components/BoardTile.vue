@@ -50,6 +50,7 @@
         if (this.puzzleLeft === 0) {
           const endTime = new Date();
           this.$store.dispatch('markEndTime', endTime);
+          this.$store.dispatch('updateUserScoreVisibility', true);
         }
       },
     },

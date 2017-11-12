@@ -7,12 +7,14 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
+    "start-db": "json-server --watch db.json",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "vue": "^2.5.2",
     "vue-drag-drop": "^0.2.1",
     "vuex": "^3.0.1"
