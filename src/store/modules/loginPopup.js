@@ -7,7 +7,7 @@ const state = {
 /* eslint-disable no-param-reassign */
 
 const getters = {
-  getPopupState(state) {
+  getLoginPopupState(state) {
     return state.popupVisibility;
   },
   getUserName(state) {
