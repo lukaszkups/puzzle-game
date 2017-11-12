@@ -22,6 +22,11 @@
     data() {
       return {
         dragging: false,
+        tileClasses: {
+          'tile-grid__tile': true,
+          'tile-grid__tile--floating': true,
+          'tile-grid__tile--invisible': this.dragging,
+        },
       };
     },
     components: {
@@ -51,5 +56,9 @@
   .tile-grid__tile--floating {
     float: none;
     position: absolute;
+  }
+
+  .tile-grid__tile--invisible {
+    visibility: hidden;
   }
 </style>

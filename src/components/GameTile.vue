@@ -37,7 +37,7 @@
         }
       },
       removePuzzle(puzzle) {
-        return this.$store.dispatch('removePuzzle', puzzle);
+        this.$store.dispatch('removePuzzle', puzzle);
       },
       addSolvedPuzzle(data) {
         const helperTile = { ...this.tile };

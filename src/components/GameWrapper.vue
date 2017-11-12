@@ -72,8 +72,8 @@
         this.tiles = this.tiles.map((tile, index) => {
           const tileClone = tile;
           const takeTile = index === neccesarryMissingTile ? true : Math.random() < 0.5;
-          const imageRandomPosX = Math.floor(Math.random() * 350) + 1;
-          const imageRandomPosY = Math.floor(Math.random() * 175) + 1;
+          const imageRandomPosX = Math.floor(Math.random() * 325) + 1;
+          const imageRandomPosY = Math.floor(Math.random() * 150) + 1;
 
           if (takeTile) {
             const puzzle = {

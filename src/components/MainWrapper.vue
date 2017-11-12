@@ -14,14 +14,14 @@
     >
       <popup-login />
     </popup-wrapper>
-    <popup-wrapper
+    <!-- <popup-wrapper
       v-if="!gameFinished"
       :window-name="scorePopupName"
       :showWindow="gameFinished"
       :closeable="false"
     >
       <popup-login />
-    </popup-wrapper>
+    </popup-wrapper> -->
   </div>
 </template>
 
