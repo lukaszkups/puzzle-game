@@ -1,6 +1,6 @@
 import store from './../store/store';
 
-export const validateLoginForm = (dataToValidate) => {
+export default(dataToValidate) => {
   const errors = {
     blank: "Username can't be blank.",
     short: 'Username must have at least 3 characters.',
@@ -22,9 +22,4 @@ export const validateLoginForm = (dataToValidate) => {
   }
   store.dispatch('clearErrors');
   return true;
-};
-
-// will not be dummy in the future
-export const dummy = () => {
-
 };
